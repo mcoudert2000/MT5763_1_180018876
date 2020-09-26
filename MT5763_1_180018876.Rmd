@@ -9,24 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
 ## Downloading Packages Needed
 ```{r packages}
 library(tidyverse)
 library(ggplot2)
 ```
 
-```{r cars}
-summary(cars)
-```
+## Saving datasets
+```{r datasets}
+washington_dataset <- read_csv("BikeWashingtonDC.csv")
+seoul_dataset <- read_csv("BikeSeoul.csv")
+````
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
