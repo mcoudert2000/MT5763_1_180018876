@@ -38,6 +38,7 @@ seoul_dataset <- seoul_dataset %>%
 ## Washington DC dataset clean up
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
-  select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday'))
+  select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
+  rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday')
 ```
 
