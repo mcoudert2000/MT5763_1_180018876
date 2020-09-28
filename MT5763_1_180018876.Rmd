@@ -58,8 +58,16 @@ washington_dataset <- washington_dataset %>%
 
 ## Joining datasets
 ```{r join}
+washington_month_day <- cbind(month(washington_dataset$FullDate),day(washington_dataset$FullDate))
+seoul_month_day <- cbind(month(seoul_dataset$FullDate),day(seoul_dataset$FullDate))
+                            
 washington_dataset %>% count(Temperature,FullDate) %>% summary()
 seoul_dataset %>% count(Temperature,FullDate) %>% summary()
+
+washington_month_day <- washington_dataset %>%
+  mutate(MonthDay = washington_month_day)
+seoul_month_day <- seoul_dataset %>%
+  mutate(MonthDay = seoul_month_day) 
 
 ```
 
