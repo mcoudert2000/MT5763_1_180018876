@@ -41,6 +41,11 @@ washington_dataset <- washington_dataset %>%
   select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
   rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday') %>%
   mutate(Humidity = Humidity*100) %>%
-  mutate(WindSpeed = WindSpeed*67*1000/60^2)
+  mutate(WindSpeed = WindSpeed*67*1000/60^2) %>%
+  mutate(Season = ifelse(Season == 1, "Winter", Season)) %>%
+  mutate(Season = ifelse(Season == 2, "Spring", Season)) %>%
+  mutate(Season = ifelse(Season == 3, "Summer", Season)) %>%
+  mutate(Season = ifelse(Season == 4, "Autumn", Season)) %>%
+  mutate(Season = ordered(Season, levels = c("Spring","Summer","Autumn","Winter")))
 ```
 
