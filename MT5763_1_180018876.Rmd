@@ -35,3 +35,9 @@ seoul_dataset <- seoul_dataset %>%
   mutate(Season = ordered(Season, levels = c("Spring","Summer","Autumn","Winter")))
 ```
 
+## Washington DC dataset clean up
+```{r washington_dataset}
+washington_dataset <- washington_dataset %>%
+  select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday'))
+```
+
