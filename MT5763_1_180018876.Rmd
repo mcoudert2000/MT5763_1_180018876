@@ -39,6 +39,7 @@ seoul_dataset <- seoul_dataset %>%
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
   select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
-  rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday')
+  rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday') %>%
+  mutate(Humidity = Humidity*100)
 ```
 
