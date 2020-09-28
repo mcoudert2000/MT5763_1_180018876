@@ -55,3 +55,14 @@ washington_dataset <- washington_dataset %>%
   print()
 ```
 
+## Joining datasets
+```{r join}
+washington_dataset %>% count(Temperature,FullDate) %>% summary()
+seoul_dataset %>% count(Temperature,FullDate) %>% summary()
+
+```
+
+
+
+
+
