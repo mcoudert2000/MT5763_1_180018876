@@ -56,19 +56,19 @@ washington_dataset <- washington_dataset %>%
   print()
 ```
 
-## Joining datasets
-```{r join}
-washington_month_day <- cbind(month(washington_dataset$FullDate),day(washington_dataset$FullDate))
-seoul_month_day <- cbind(month(seoul_dataset$FullDate),day(seoul_dataset$FullDate))
-                            
-washington_dataset %>% count(Temperature,FullDate) %>% summary()
-seoul_dataset %>% count(Temperature,FullDate) %>% summary()
-
-washington_month_day <- washington_dataset %>%
-  mutate(MonthDay = washington_month_day)
-seoul_month_day <- seoul_dataset %>%
-  mutate(MonthDay = seoul_month_day) 
-
+## Temperature v Day Plot
+```{r temp_v_day}
+temp <- washington_dataset %>%
+  ggplot(aes(x = yday(FullDate), y = Temperature, colour = 'Washington DC'), size = 2) +
+  geom_point() +
+  xlab("Day of year from January 1st") +
+  ylab("Temperature") +
+  labs(colour = "City")
+temp + geom_point(data = seoul_dataset, aes(x=yday(FullDate),y=Temperature, colour = 'Seoul'), size = 2) +
+  stat_smooth(data = seoul_dataset, mapping = aes(x = yday(FullDate), y = Temperature, colour = 'Seoul Fit')) +
+  stat_smooth(data = washington_dataset, mapping = aes(x = yday(FullDate), y = Temperature, colour = 'Washington DC Fit')) +
+  ggtitle("Temperature over the Year in Washington DC and Seoul")
+  
 ```
 
 
