@@ -24,8 +24,8 @@ seoul_dataset <- read_csv("BikeSeoul.csv")
 ## Seoul dataset clean up
 ```{r seoul_dataset}
 seoul_dataset <- seoul_dataset %>%
-  select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)')) %>% 
+  select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)','Functioning Day')) %>% 
   filter(!is.na('Rented Bike Count')) %>%
-  
+  rename(Date = 'Date',Count = 'Rented Bike Count',Hour = 'Hour', Temperature = 'Temperature(C)', Humidity = 'Humidity(%)', WindSpeed = 'Wind speed (m/s)', Season = 'Seasons', Holiday = 'Holiday')
 ```
 
