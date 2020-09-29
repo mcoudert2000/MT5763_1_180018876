@@ -71,7 +71,21 @@ temp + geom_point(data = seoul_dataset, aes(x=yday(FullDate),y=Temperature, colo
   
 ```
 
-
-
+## Plotting season v bike demand
+```{r season_v_bike_demand}
+require(gridExtra)
+#seoul_dataset %>% count(Season, yday(FullDate)) %>% summary()
+season_seoul_dataset <- seoul_dataset %>%
+  select(c("Season","Count"))
+season_washington_dataset <- washington_dataset %>%
+  select(c("Season","Count"))
+season_plot_seoul <- season_seoul_dataset %>%
+  ggplot(aes(x = Season, y = Count, colour = "Seoul")) + 
+  geom_boxplot()
+season_plot_washington <- season_washington_dataset %>%
+  ggplot(aes(x = Season, y = Count, colour = "Washington DC")) + 
+  geom_boxplot()
+grid.arrange(season_plot_seoul,season_plot_washington, ncol = 2)
+```
 
 
