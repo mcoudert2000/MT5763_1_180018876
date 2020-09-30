@@ -71,7 +71,7 @@ dataset <- seoul_dataset %>%
 
 ## Temperature v Day Plot
 ```{r temp_v_day}
-temp <- dataset %>%
+temp_plot <- dataset %>%
   ggplot(aes(x = yday(FullDate), y = Temperature)) + 
   geom_point() + 
   xlab("Day of year from January 1st") +
@@ -79,23 +79,19 @@ temp <- dataset %>%
   stat_smooth(data = dataset, mapping = aes(x = yday(FullDate), y = Temperature)) +
   facet_wrap(~City) +
   ggtitle("Temperature over the year in Washington DC and Seoul")
-temp
+temp_plot
 ```
 
 ## Plotting season v bike demand
 ```{r season_v_bike_demand}
-require(gridExtra)
-season_seoul_dataset <- seoul_dataset %>%
-  select(c("Season","Count"))
-season_washington_dataset <- washington_dataset %>%
-  select(c("Season","Count"))
-season_plot_seoul <- season_seoul_dataset %>%
-  ggplot(aes(x = Season, y = Count, colour = "Seoul")) + 
-  geom_boxplot()
-season_plot_washington <- season_washington_dataset %>%
-  ggplot(aes(x = Season, y = Count, colour = "Washington DC")) + 
-  geom_boxplot()
-grid.arrange(season_plot_seoul,season_plot_washington, ncol = 2)
+
+season_plot <- dataset %>%
+  ggplot(aes(x = Season, y = Count)) +
+  geom_boxplot() + 
+  facet_wrap(~City, ncol=1) + 
+  ggtitle("Boxplot of Season versus number of Bikes Rented") +
+  xlab("Season") + 
+  ylab("Number of bikes rented per hour")
 ```
 
 ## Plotting holiday v bike demand
