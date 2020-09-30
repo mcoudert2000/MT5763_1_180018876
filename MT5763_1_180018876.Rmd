@@ -128,5 +128,23 @@ air_temp_plot <- dataset %>%
   ggtitle("Temperature vs Bike Rental") +
   ylab("Number of bikes hired per hour")
 air_temp_plot
+
+humidity_plot <- dataset %>%
+  ggplot(aes(x = Humidity, y = Count)) +
+  geom_point() +
+  facet_wrap(~City, scale = "free") +
+  stat_smooth(data = dataset, mapping = aes(x = Humidity, y = Count)) +
+  ggtitle("Humidity vs Bike Rental") +
+  ylab("Number of bikes hired per hour")
+humidity_plot
+
+wind_plot <- dataset %>%
+  ggplot(aes(x = WindSpeed, y = Count)) +
+  geom_point() +
+  facet_wrap(~City, scale = "free") +
+  stat_smooth(data = dataset, mapping = aes(x = WindSpeed, y = Count)) +
+  ggtitle("WindSpeed (m/s) vs Bike Rental") +
+  ylab("Number of bikes hired per hour")
+wind_plot
 ```
 
