@@ -77,7 +77,7 @@ temp_plot <- dataset %>%
   xlab("Day of year from January 1st") +
   ylab("Temperature (C)")+
   stat_smooth(data = dataset, mapping = aes(x = yday(FullDate), y = Temperature)) +
-  facet_wrap(~City) +
+  facet_wrap(~City, scales = "free") +
   ggtitle("Temperature over the year in Washington DC and Seoul")
 temp_plot
 ```
@@ -87,11 +87,11 @@ temp_plot
 season_plot_hour <- dataset %>%
   ggplot(aes(x = Season, y = Count)) +
   geom_boxplot() + 
-  facet_wrap(~City, ncol=1) + 
+  facet_wrap(~City, scales = "free") + 
   ggtitle("Boxplot of Season versus number of Bikes Rented") +
   xlab("Season") + 
   ylab("Number of bikes rented per hour")
-
+season_plot_hour
 season_plot_day <- dataset %>%
   group_by(date(FullDate),City, Season) %>%
   summarise(DayCount = sum(Count)) %>%
@@ -101,7 +101,7 @@ season_plot_day <- dataset %>%
   ggtitle("Boxplot of Season versus number of Bikes Rented per Day") +
   xlab("Season") +
   ylab("Number of bikes rented per day") 
-  
+season_plot_day
 ```
 
 ## Plotting holiday v bike demand
@@ -115,6 +115,7 @@ holiday_plot <- dataset %>%
   ggtitle("Boxplot of Holiday versus number of Bikes rented per day") +
   xlab("Holiday") +
   ylab("Number of bikes rented per day")
+holiday_plot
 ```
 
 ## Plotting weather variables v bike demand
