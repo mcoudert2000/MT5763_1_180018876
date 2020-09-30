@@ -56,6 +56,19 @@ washington_dataset <- washington_dataset %>%
   print()
 ```
 
+
+## Creating big dataset with both Seoul and Washington DC
+```{r big_dataset}
+seoul_dataset <- seoul_dataset %>%
+  mutate(city = "Seoul")
+washington_dataset <- washington_dataset %>%
+  mutate(city = "Washington DC")
+dataset <- seoul_dataset %>%
+  add_row(washington_dataset) %>%
+  arrange(Count)
+```
+
+
 ## Temperature v Day Plot
 ```{r temp_v_day}
 temp <- washington_dataset %>%
