@@ -117,3 +117,15 @@ holiday_plot <- dataset %>%
   ylab("Number of bikes rented per day")
 ```
 
+## Plotting weather variables v bike demand
+```{r weather_v_bike_demand}
+air_temp_plot <- dataset %>%
+  ggplot(aes(x = Temperature, y = Count)) +
+  geom_point() +
+  facet_wrap(~City, scale = "free") +
+  stat_smooth(data = dataset, mapping = aes(x = Temperature, y = Count)) +
+  ggtitle("Temperature vs Bike Rental") +
+  ylab("Number of bikes hired per hour")
+air_temp_plot
+```
+
