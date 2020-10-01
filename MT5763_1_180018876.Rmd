@@ -152,12 +152,12 @@ wind_plot
 ## STATISTICAL MODELLING
 
 ## Linear Model for Seoul
+In order to deal with the nominal categorical variable Season, I created n-1 dummy variables where a value is 1 if it is that season and 0 otherwise
 ```{r linear_seoul}
 seoul_model_dataset <- seoul_dataset %>%
   mutate(Winter = ifelse(Season == "Winter", 1, 0)) %>%
   mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
-  mutate(Summer = ifelse(Season == "Summer", 1, 0)) %>%
-  mutate(Autumn = ifelse(Season == "Autumn", 1, 0))
+  mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
 
 seoul_model <- lm(formula = Count ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
