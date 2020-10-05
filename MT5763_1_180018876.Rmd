@@ -17,7 +17,7 @@ library(lubridate)
 ```
 
 ## Saving datasets
-```{r datasets}
+```{r datasets, message=FALSE, warning=FALSE, results=}
 washington_dataset <- read_csv("BikeWashingtonDC.csv")
 seoul_dataset <- read_csv("BikeSeoul.csv")
 ```
@@ -32,8 +32,7 @@ seoul_dataset <- seoul_dataset %>%
   mutate(FullDate = make_datetime(year = year(Date), month = month(Date), day = day(Date), hour = Hour)) %>%
   select(-c(Date,Hour)) %>%
   mutate(Holiday = factor(ifelse(Holiday == "Holiday", "Yes", "No"), levels = c("Yes","No"))) %>%
-  mutate(Season = ordered(Season, levels = c("Spring","Summer","Autumn","Winter"))) %>%
-  print()
+  mutate(Season = ordered(Season, levels = c("Spring","Summer","Autumn","Winter")))
 ```
 
 ## Washington DC dataset clean up
@@ -52,8 +51,7 @@ washington_dataset <- washington_dataset %>%
   mutate(Holiday = factor(ifelse(Holiday == 1, "Yes", "No"), levels = c("Yes","No"))) %>%
   mutate(Date = parse_date_time(Date,"ymd")) %>%
   mutate(FullDate = make_datetime(year = year(Date), month = month(Date), day = day(Date), hour = Hour)) %>%
-  select(-c(Date,Hour)) %>%
-  print()
+  select(-c(Date,Hour))
 ```
 
 
@@ -83,7 +81,7 @@ temp_plot
 ```
 
 ## Plotting season v bike demand
-```{r season_v_bike_demand}
+```{r season_v_bike_demand, message=FALSE, warning=FALSE}
 season_plot_hour <- dataset %>%
   ggplot(aes(x = Season, y = Count)) +
   geom_boxplot() + 
@@ -119,7 +117,7 @@ holiday_plot
 ```
 
 ## Plotting weather variables v bike demand
-```{r weather_v_bike_demand}
+```{r weather_v_bike_demand, message=FALSE, warning=FALSE}
 air_temp_plot <- dataset %>%
   ggplot(aes(x = Temperature, y = Count)) +
   geom_point() +
@@ -149,7 +147,7 @@ wind_plot
 ```
 
 
-## STATISTICAL MODELLING
+# STATISTICAL MODELLING
 
 ## Linear Model for Seoul
 In order to deal with the nominal categorical variable Season, I created n-1 dummy variables where a value is 1 if it is that season and 0 otherwise. 
