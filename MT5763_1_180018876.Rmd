@@ -175,6 +175,19 @@ washington_model <- lm(formula = log(Count + 1) ~ Winter + Spring + Summer + Tem
 summary(washington_model)
 
 ```
+## Model Analysis
+A linear model is built on the assumptions that the errors of the model are independent and identically normally distributed with mean 0 and variance $\sigma^2$. Below the plotted Normal Q-Q plots show that 
+```{r model_analysis}
+washington_residuals <- resid(washington_model)
+seoul_residuals <- resid(seoul_model)
+
+
+par(mfrow = c(2,2))
+plot(washington_model)
+
+plot(seoul_model)
+
+```
 
 ```{r confidence_intervals}
 confint(seoul_model, level = 0.97) 
