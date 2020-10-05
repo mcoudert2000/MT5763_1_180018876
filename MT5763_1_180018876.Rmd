@@ -176,5 +176,17 @@ summary(washington_model)
 
 ```
 
+```{r confidence_intervals}
+confint(seoul_model, level = 0.97) 
+confint(washington_model, level = 0.97)
 
+example_predict <- data.frame(Temperature = 0,
+                              WindSpeed = 0.5,
+                              Humidity = 20,
+                              Winter = 1,
+                              Spring = 0,
+                              Summer = 0)
+log_seoul_predict <- predict(seoul_model, interval = "prediction", level = 0.90, newdata = example_predict)
+log_washington_predict <- predict(washington_model, interval = "prediction", level = 0.90, newdata = example_predict)
+```
 
