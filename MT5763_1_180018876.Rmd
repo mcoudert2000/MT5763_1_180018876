@@ -104,6 +104,7 @@ dataset <- seoul_dataset %>%
 In order to gain a better understanding of how each of the variables are related to eachother, we will plot different variables against eachother. 
 
 ## Temperature v Day Plot
+In order to get a general idea of how the climates in each location change over the seasons, we will plot for both cities a scatter plot of the date versus the temperature for each datapoint (subdivided into hours). In order to plot this and include datasets that have a very different date range, I plotted against the day of the year, starting from January 1st. Additionally, I used stat_smooth to fit a line to estimate the expected temeperature for each day over the year. 
 ```{r temp_v_day}
 temp_plot <- dataset %>%
   ggplot(aes(x = yday(FullDate), y = Temperature)) + 
