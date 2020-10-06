@@ -187,6 +187,8 @@ plot(seoul_model)
 
 ```
 
+## Confidence Intervals for Models
+Here, I've generated a 97% confidence interval for each of the variables. The Washington DC model differs pretty greatly from the model for Seoul in that it has negative coefficients for for all of the Seasons and has a greater coefficient for temperature in order to compensate for this difference. 
 ```{r confidence_intervals}
 confint(seoul_model, level = 0.97) 
 confint(washington_model, level = 0.97)
