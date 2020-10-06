@@ -9,6 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Introduction
+Bike Shares have been rising in popularity over the past few years in many cities all around the world. In order to predict usage of bikes throughout the year, we will explore the relationships between bike usage and other variables, such as day of the year, season, temperature and other meteorlogical variables. After exploring these relationships, we will use this knowledge to build a model in order to predict bike demand throughout the year. 
+# Data Cleanup
+
+
 ## Downloading Packages Needed
 ```{r packages}
 library(tidyverse)
@@ -17,7 +22,7 @@ library(lubridate)
 ```
 
 ## Saving datasets
-```{r datasets, message=FALSE, warning=FALSE, results=}
+```{r datasets, message = FALSE, warning = FALSE, results = FALSE}
 washington_dataset <- read_csv("BikeWashingtonDC.csv")
 seoul_dataset <- read_csv("BikeSeoul.csv")
 ```
