@@ -60,6 +60,15 @@ seoul_dataset <- seoul_dataset %>%
 ```
 
 ## Washington DC dataset clean up
+Similar to the one above I'll go line by line to explain what's going on!
+
+1. Again piping the dataset into the next variables
+2. Selecting and renaming the variables we're using for analysis for consistency. 
+3. Changing humidity into a percentage format to be consistent with the Seoul dataset. ($=\text{humidity}*100$)
+4. Taking the inverse of the normalization function used in the temperature to convert it to Celcius. $f(t) = \frac{t-(-8)}{39-(-8)}$, $f^{-1}(t) = t*(39-(-8))+8$
+5. Taking the inverse of the normalization function used for the temperature to convert it to (m/s) from $f(w)=\frac{1}{67}w (km/h)$, $f^{-1}(w)=\frac{w*67*1000}{60^2}$
+6. Changing the Seasons from a numeric into an ordered factor in the same order as the Seoul Dataset ("Spring","Summer","Autumn","Winter")
+7. Parsing date, putting it into similar FullDate = day-month-year-hour format and removing unneeded Date and Hour variables.
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
   select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
