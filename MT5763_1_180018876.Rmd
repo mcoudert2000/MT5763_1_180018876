@@ -182,6 +182,8 @@ wind_plot
 
 
 # STATISTICAL MODELLING
+Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y+1) = \beta_0+\beta_1\mathbf{x}_{Winter}+\beta_2\mathbf x_{Spring}+\beta_3\mathbf x_{Summer}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
+
 
 ## Linear Model for Seoul
 In order to deal with the nominal categorical variable Season, I created n-1 dummy variables where a value is 1 if it is that season and 0 otherwise. 
