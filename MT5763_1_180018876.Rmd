@@ -89,6 +89,7 @@ washington_dataset <- washington_dataset %>%
 
 
 ## Creating big dataset with both Seoul and Washington DC
+In order to more easily plot things with facet_wrap, I put all the data into one dataset and added a variable called "City" to denote which city it's coming from. 
 ```{r big_dataset}
 seoul_dataset <- seoul_dataset %>%
   mutate(City = "Seoul")
@@ -99,6 +100,8 @@ dataset <- seoul_dataset %>%
   arrange(Count)
 ```
 
+# Plotting
+In order to gain a better understanding of how each of the variables are related to eachother, we will plot different variables against eachother. 
 
 ## Temperature v Day Plot
 ```{r temp_v_day}
