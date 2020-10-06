@@ -12,15 +12,21 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduction
 Bike Shares have been rising in popularity over the past few years in many cities all around the world. In order to predict usage of bikes throughout the year, we will explore the relationships between bike usage and other variables, such as day of the year, season, temperature and other meteorlogical variables. After exploring these relationships, we will use this knowledge to build a model in order to predict bike demand throughout the year. For this project, we have data from Washington DC and Seoul, and will use these data to build two distinct models. 
 
-# Data Cleanup
-In order to do analysis on the data, we first need to 'tidy' the data in order to have it in a format that will be easier to work with as well as being in the same format across both datasets for comparison. In order to accomplish this we will put the data into 'tidy' format using the package tidyverse. In order for data to be 'tidy', it must have: "Rows containing differrent observations; columns containing different variables and cells containing values."
-
 ## Downloading Packages Needed
+In order to assist us with the data visualization and clean up, we will download 3 packages:
+
+1. **tidyverse**: Assists with putting the data into 'tidy' format
+2. **ggplot2**: Makes plotting cleaner and more readable, as well as adding functionality
+3. **lubridate**: Makes dates easier to work with in our datasets
 ```{r packages}
 library(tidyverse)
 library(ggplot2)
 library(lubridate)
 ```
+
+# Data Cleanup
+In order to do analysis on the data, we first need to 'tidy' the data in order to have it in a format that will be easier to work with as well as being in the same format across both datasets for comparison. In order to accomplish this we will put the data into 'tidy' format using the package tidyverse. In order for data to be 'tidy', it must have: "Rows containing differrent observations; columns containing different variables and cells containing values."
+
 
 ## Saving datasets
 ```{r datasets, message = FALSE, warning = FALSE, results = FALSE}
