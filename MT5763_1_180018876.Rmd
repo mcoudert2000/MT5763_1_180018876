@@ -29,12 +29,24 @@ In order to do analysis on the data, we first need to 'tidy' the data in order t
 
 
 ## Saving datasets
+The messy datasets are saved in the csv format for easy parsing. 
 ```{r datasets, message = FALSE, warning = FALSE, results = FALSE}
 washington_dataset <- read_csv("BikeWashingtonDC.csv")
 seoul_dataset <- read_csv("BikeSeoul.csv")
 ```
 
 ## Seoul dataset clean up
+This is a lot! I'll go line by line in order to explain what I'm doing. 
+
+1. Piping the dataset into the next variable
+2. Selecting only the variables we are going to use in our analysis
+3. Removing the times that there is no count within the dataset
+4. Renaming the variables in order to be consistent across the two datasets and have a consistent PascalCase naming convention.
+5. Save the date as a lubridate date format so it is easier to work with in the analysis
+6. Creating a new date variable FullDate that stores both the date and the time of day
+7. FullDate eliminates the need to have seperate variables for Date and Hour, so remove these
+8. Changing the Holiday variable from a Character type to a Factor with levels "Yes" and "No"
+9. Changing the Season variable from a Character type to an Ordered Factor with levels "Spring","Summer","Autumn", and "Winter" in that order. 
 ```{r seoul_dataset}
 seoul_dataset <- seoul_dataset %>%
   select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)','Functioning Day')) %>% 
