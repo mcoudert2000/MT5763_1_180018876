@@ -117,7 +117,8 @@ temp_plot <- dataset %>%
 temp_plot
 ```
 
-## Plotting season v bike demand
+## Plotting Season Against Bike Demand
+Now that we have explored the temepurature data across the year, it's time to start looking at how each of the explanatory variables affect the number of bikes rented per day. First we'll explore how the season of the year affects how many bikes are rented each day. To visualize this, I plotted a boxplot for each city. There's a clear increase in bike usage during the warmer seasons than in the winter in both cities. There is a more drastic drop in bike usage in Seoul during the winter than in Washington DC, and a question to explore would be whether or not this is due to Washington DC having a comparitively milder winter than Seoul. 
 ```{r season_v_bike_demand, message=FALSE, warning=FALSE}
 season_plot_day <- dataset %>%
   group_by(date(FullDate),City, Season) %>%
@@ -125,7 +126,7 @@ season_plot_day <- dataset %>%
   ggplot(aes(x = Season, y = DayCount)) +
   geom_boxplot() + 
   facet_wrap(~City, scales = "free") + 
-  ggtitle("Boxplot of Season versus number of Bikes Rented per Day") +
+  ggtitle("Boxplot of Season Versus number of Bikes Rented per Day") +
   xlab("Season") +
   ylab("Number of bikes rented per day") 
 season_plot_day
