@@ -153,7 +153,9 @@ holiday_plot_season <- holiday_plot +
 holiday_plot_season #THIS SHOULD BE A BAR PLOT!!!!!!!!!!
 ```
 
-## Plotting weather variables v bike demand
+## Plotting Weather versus Bike Count
+Here we will Plot to see the relationship between the different meteorlogoical variables and the number of bikes rented. 
+### Temperature
 ```{r temp_v_bike_demand, message=FALSE, warning=FALSE}
 air_temp_plot <- dataset %>%
   ggplot(aes(x = Temperature, y = Count)) +
@@ -164,13 +166,13 @@ air_temp_plot <- dataset %>%
   ylab("Number of bikes hired per hour")
 air_temp_plot
 ```
-There are clearly way too many datapoints to interpret this data properly. In order to clean it up, we will instead plot the average bike count for each temperature. In order to accomplish this, first I'll need to compute the average:
+While we can see there is clearly a positive linear relationship between bike rentals and temperature, there is clearly way too many datapoints for us to interpret this data properly in this format. In order to clean it up, we will instead plot the average bike count for each temperature. In order to accomplish this, first I'll need to compute the average:
 ```{r computing_avg_bike_count_per_temp, message = FALSE, warning = FALSE}
 temp_count_average <- dataset %>%
   group_by(Temperature, City) %>%
   summarise(mn = mean(Count))
 ```
-Now we can plot this versus the temperature:
+Now we can plot this mean versus the temperature:
 ```{r temp_v_avg_bike_demand, message = FALSE, warning = FALSE}
 air_temp_avg_plot <- temp_count_average %>%
   ggplot(aes(x = Temperature, y = mn)) +
@@ -181,7 +183,7 @@ air_temp_avg_plot <- temp_count_average %>%
   ylab("Number of bikes hired per hour")
 air_temp_avg_plot
 ```
-This is much more clear! Now we can get a much better picture of what's going on. Both datasets appear to have a close to linear (outside of the extremes) positive relationship where as temperature goes up the average number of bikes rented increases as well. In the Seoul dataset, at very high temperatures (>30 degrees) there appears to be a negative relationship between ridership and temperature as it gets too hot. This may hold as well for Washington DC, but it is hard to tell as we have much less data. 
+This is much more clear! Now we can get a much better picture of what's going on. Both datasets appear to have a close to linear (outside of the extremes) positive relationship where as temperature goes up the average number of bikes rented increases as well. In the Seoul dataset, at very high temperatures (>30 degrees) there appears to be a negative relationship between ridership and temperature as it gets too hot. This may hold as well for Washington DC, but it is hard to tell as we have much less data than for Seoul. 
 
 
 ```{r humidity_v_bike_demand}
