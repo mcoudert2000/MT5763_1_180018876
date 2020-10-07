@@ -298,14 +298,18 @@ Here, I've generated a 97% confidence interval for each of the variables. The Wa
 ```{r confidence_intervals}
 confint(seoul_model, level = 0.97) 
 confint(washington_model, level = 0.97)
+```
 
+## Using our Models!
+Here we will take a Winter day with 0 Temperature, a Wind Speed of 0.5(m/s), a Humidity of 20%. 
+```{r prediction}
 example_predict <- data.frame(Temperature = 0,
                               WindSpeed = 0.5,
                               Humidity = 20,
-                              Winter = 1,
-                              Spring = 0,
-                              Summer = 0)
+                              Season = 'Winter')
 log_seoul_predict <- predict(seoul_model, interval = "prediction", level = 0.90, newdata = example_predict)
 log_washington_predict <- predict(washington_model, interval = "prediction", level = 0.90, newdata = example_predict)
+print(log_seoul_predict)
+print(log_washington_predict)
 ```
 
