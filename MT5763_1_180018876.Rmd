@@ -303,4 +303,4 @@ We have to remember this is a prediction of the $log$ of the count so in order t
 print(exp(log_seoul_predict))
 print(exp(log_washington_predict))
 ```
-The expected value for Seoul is 369.96 bikes rented in an hour with those specifications with an upper and lower bound of $(94.75,1444.63)$ with 90% confidence. The expected value for Washington DC is 71.98 and has bounds $(9.01,575.29)$. 
+The expected value for Seoul is 369.96 bikes rented in an hour with those specifications with an upper and lower bound of $(94.75,1444.63)$ with 90% confidence. The expected value for Washington DC is 71.98 and has bounds $(9.01,575.29)$. For both models we have a very large prediction interval with 90% confidence. This suggests there is a high level of variance and that the model isn't very accurate. Perhaps a linear model doesn't account for all the nuances of the data, such as the perhaps non-linear relationship between temperature and bike usage. 
