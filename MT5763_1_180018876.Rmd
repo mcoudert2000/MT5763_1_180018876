@@ -151,8 +151,27 @@ holiday_plot
 ```
 It appears at first that Seoul has a much larger affect on its bike rental usage. Looking further into this, this can be partially explained that for both cities, it appears the largest gap between Holidays and non-holidays is in the Winter, and Seoul has many more of its holidays on Winter days than Washington DC does combined with the fact that Winter has on average less bike usage than other seasons.
 
+## Plotting Time vs Bike Usage
+In order to plot the time of day vs the number of bikes hour we will first find the average number of bikes hired for each dataset:
+```{r computing_avg_bike_count_per_hour, message = FALSE}
+hour_count_average <- dataset %>%
+  group_by(Hour = hour(FullDate), City) %>%
+  summarise(mn = mean(Count))
+```
+Now we can plot this relationship:
+```{r hour_v_avg_bike_demand}
+hour_avg_plot <- hour_count_average %>%
+  ggplot(aes(x = Hour, y = mn)) +
+  geom_col() +
+  facet_wrap(~City, scale = "free") +
+  ggtitle("Time of Day vs Bike Rental") +
+  ylab("Number of bikes hired per hour")
+hour_avg_plot
+```
+There's clearly an increase at commuting times of 9 and 16-18 hours with a sharp decrease in the late hours of the night. 
 
-## Plotting Weather versus Bike Count
+
+## Plotting Weather versus Bike Usage
 Here we will Plot to see the relationship between the different meteorlogoical variables and the number of bikes rented. 
 ### Temperature
 ```{r temp_v_bike_demand, message=FALSE, warning=FALSE}
