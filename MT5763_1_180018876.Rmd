@@ -239,13 +239,13 @@ plot(washington_model)
 ### Seoul Model
 We will again go through the 4 plots for this model:
 
-* *Residuals vs Fitted*: 
-* *Normal Q-Q*: 
-* *Scale-Location*: 
-* *Residuals vs Leverage*: 
+* *Residuals vs Fitted*: As above, the assumption that this model is linear seems appropriate.
+* *Normal Q-Q*: Outside of the tails this line is straight so the residuals are probably close to linearly distributed.
+* *Scale-Location*: The assumption seems reasonable that the residuals have equal variance.
+* *Residuals vs Leverage*: There doesn't appear to be any outliers that are greatly affecting our model.
 ```{r model_analysis_seoul}
 par(mfrow = c(2,2))
-plot(seoul_model, main = "Seoul Diagnostics")
+plot(seoul_model)
 ```
 
 ## Confidence Intervals for Models
