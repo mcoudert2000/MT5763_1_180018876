@@ -244,9 +244,7 @@ wind_plot
 For both of these datasets, it looks quite clearly non-linear with a peak of around 2.5(m/s) for Seoul and 5(m/s). This could be due to the fact that it is either non-linear or the fact that there is less data for larger or smaller wind speeds increasing the affect of outliers on the model.
 
 # STATISTICAL MODELLING
-Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y) = \beta_0+\beta_1\mathbf{x}_{Winter}+\beta_2\mathbf x_{Spring}+\beta_3\mathbf x_{Summer}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
-
-For each of the models, there is a nominal variable Season. This does not have a numerical value, so in order to put them into the model, we create 3 new variables: Winter, Spring and Summer (Autumn is the 'default'). For each of these variables we assign a value of 1 to it if it was the current season or else a 0 if it was a different season. 
+Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y) = \beta_0+\beta_1\mathbf{x}_{Summer}+\beta_2\mathbf x_{Autumn}+\beta_3\mathbf x_{Winter}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
 
 ## Linear Model for Seoul
 Here we used `lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
@@ -256,10 +254,9 @@ seoul_model_dataset <- seoul_dataset %>%
   mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
-seoul_model <- lm(formula = log(Count) ~ Spring + Summer + Winter + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
+seoul_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
 summary(seoul_model)
 ```
-
 
 
 ## Linear model for Washington DC
@@ -270,7 +267,7 @@ washington_model_dataset <- washington_dataset %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
 
-washington_model <- lm(formula = log(Count) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
+washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
 summary(washington_model)
 
 ```
