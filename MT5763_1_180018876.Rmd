@@ -259,7 +259,6 @@ summary(seoul_model)
 ```{r linear_washington}
 washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
 summary(washington_model)
-
 ```
 ## Model Analysis
 A linear model is built on the assumptions that the errors of the model are independent and identically normally distributed with mean 0 and variance $\sigma^2$. 
@@ -272,27 +271,27 @@ seoul_residuals <- resid(seoul_model)
 Now that we have the reiduals saved we will use base R's `plot.lm()` function to give us a few diagnostic tests for each of the models.
 ### Washington Model
 Here we will go through the 4 given plots to check our assumptions for the linear model.
-
-* *Residuals vs Fitted*: This checks whether or not this model is a linear relationship. The fitted line looks more or less linear, so we can assume for now that this is an appropriate model to use.
-* *Normal Q-Q*: This checks whether or not the residuals are normally distributed. As the line is close to linear, this seems to be a reasonable assumption to make for our model. 
-* *Scale-Location*: This checks to see if our assumption of equal variance for residuals holds. If the line is horizontal and the spread seems uniform between than this assumption holds. In this plot we have a clear downward trend, so would be worth investigating further if our assumption of equal variance is appropriate.
-* *Residuals vs Leverage*: This plot gives us information if there's any outliers having a significant impact on our model. As our Cook Distance lines are barely visible, most of our data lies within the lines or very close to it. Therefore we can take the assumption that our model isn't affected greatly by outliers. 
 ```{r model_analysis_washington}
 par(mfrow = c(2,2))
 plot(washington_model)
 ```
 
+* *Residuals vs Fitted*: This checks whether or not this model is a linear relationship. The fitted line looks more or less linear, so we can assume for now that this is an appropriate model to use.
+* *Normal Q-Q*: This checks whether or not the residuals are normally distributed. As the line is close to linear, this seems to be a reasonable assumption to make for our model. 
+* *Scale-Location*: This checks to see if our assumption of equal variance for residuals holds. If the line is horizontal and the spread seems uniform between than this assumption holds. In this plot we have a clear downward trend, so would be worth investigating further if our assumption of equal variance is appropriate.
+* *Residuals vs Leverage*: This plot gives us information if there's any outliers having a significant impact on our model. As our Cook Distance lines are barely visible, most of our data lies within the lines or very close to it. Therefore we can take the assumption that our model isn't affected greatly by outliers. 
+
 ### Seoul Model
 We will again go through the 4 plots for this model:
+```{r model_analysis_seoul}
+par(mfrow = c(2,2))
+plot(seoul_model)
+```
 
 * *Residuals vs Fitted*: As above, the assumption that this model is linear seems appropriate.
 * *Normal Q-Q*: Outside of the tails this line is straight so the residuals are probably close to linearly distributed.
 * *Scale-Location*: The assumption seems reasonable that the residuals have equal variance.
 * *Residuals vs Leverage*: There doesn't appear to be any outliers that are greatly affecting our model.
-```{r model_analysis_seoul}
-par(mfrow = c(2,2))
-plot(seoul_model)
-```
 
 ## Confidence Intervals for Models
 Here, I've generated a 97% confidence interval for each of the variables. The Washington DC model differs pretty greatly from the model for Seoul in that it has negative coefficients for for all of the Seasons and has a greater coefficient for temperature in order to compensate for this difference. 
