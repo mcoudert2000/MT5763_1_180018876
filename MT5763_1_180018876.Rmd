@@ -189,7 +189,7 @@ Now that we've explored some of the relationships between the variables and Bike
 For each of the models, there is a nominal variable Season. This does not have a numerical value, so in order to put them into the model, we create 3 new variables: Winter, Spring and Summer (Autumn is the 'default'). For each of these variables we assign a value of 1 to it if it was the current season or else a 0 if it was a different season. 
 
 ## Linear Model for Seoul
-Here we used `r lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
+Here we used `lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
 ```{r linear_seoul}
 seoul_model_dataset <- seoul_dataset %>%
   mutate(Winter = ifelse(Season == "Winter", 1, 0)) %>%
