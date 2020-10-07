@@ -249,11 +249,7 @@ Now that we've explored some of the relationships between the variables and Bike
 ## Linear Model for Seoul
 Here we used `lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
 ```{r linear_seoul}
-seoul_model_dataset <- seoul_dataset %>%
-  mutate(Winter = ifelse(Season == "Winter", 1, 0)) %>%
-  mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
-  mutate(Summer = ifelse(Season == "Summer", 1, 0))
-
+seoul_model_dataset <- seoul_dataset
 seoul_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
 summary(seoul_model)
 ```
@@ -261,12 +257,6 @@ summary(seoul_model)
 
 ## Linear model for Washington DC
 ```{r linear_washington}
-washington_model_dataset <- washington_dataset %>%
-  mutate(Winter = ifelse(Season == "Winter", 1, 0)) %>%
-  mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
-  mutate(Summer = ifelse(Season == "Summer", 1, 0))
-
-
 washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
 summary(washington_model)
 
