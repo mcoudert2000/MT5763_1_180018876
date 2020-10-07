@@ -168,7 +168,7 @@ hour_avg_plot <- hour_count_average %>%
   ylab("Number of bikes hired per hour")
 hour_avg_plot
 ```
-There's clearly an increase at commuting times of 9 and 16-18 hours with a sharp decrease in the late hours of the night. 
+There's clearly an increase at commuting times of 9 and 16-18 hours with a sharp decrease in the late hours of the night. Considering these are very common commuting times it makes sense that the peak would be during these times of day. 
 
 
 ## Plotting Weather versus Bike Usage
@@ -230,7 +230,7 @@ wind_count_average <- dataset %>%
   group_by(WindSpeed, City) %>%
   summarise(mn = mean(Count))
 ```
-Now we can plot this:
+And the plot: 
 ```{r wind_v_bike_demand}
 wind_plot <- wind_count_average %>%
   ggplot(aes(x = WindSpeed, y = mn)) +
@@ -241,7 +241,7 @@ wind_plot <- wind_count_average %>%
   ylab("Number of bikes hired per hour")
 wind_plot
 ```
-For both of these plots, it looks quite clearly non-linear with a peak of around 2.5(m/s) for Seoul and 5(m/s). This could be due to the fact that it is either non-linear 
+For both of these datasets, it looks quite clearly non-linear with a peak of around 2.5(m/s) for Seoul and 5(m/s). This could be due to the fact that it is either non-linear or the fact that there is less data for larger or smaller wind speeds increasing the affect of outliers on the model.
 
 # STATISTICAL MODELLING
 Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y) = \beta_0+\beta_1\mathbf{x}_{Winter}+\beta_2\mathbf x_{Spring}+\beta_3\mathbf x_{Summer}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
