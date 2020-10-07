@@ -49,6 +49,7 @@ This is a lot! I'll go line by line in order to explain what I'm doing.
 9. Changing the Season variable from a Character type to an Ordered Factor with levels "Spring","Summer","Autumn", and "Winter" in that order. 
 ```{r seoul_dataset}
 seoul_dataset <- seoul_dataset %>%
+  filter(seoul_dataset$`Functioning Day`=="Yes") %>%
   select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)','Functioning Day')) %>% 
   filter(!is.na('Rented Bike Count')) %>%
   rename(Date = 'Date',Count = 'Rented Bike Count',Hour = 'Hour', Temperature = 'Temperature(C)', Humidity = 'Humidity(%)', WindSpeed = 'Wind speed (m/s)', Season = 'Seasons', Holiday = 'Holiday') %>%
@@ -236,8 +237,15 @@ plot(washington_model)
 ```
 
 ### Seoul Model
+We will again go through the 4 plots for this model:
+
+* *Residuals vs Fitted*: 
+* *Normal Q-Q*: 
+* *Scale-Location*: 
+* *Residuals vs Leverage*: 
 ```{r model_analysis_seoul}
-plot(seoul_model)
+par(mfrow = c(2,2))
+plot(seoul_model, main = "Seoul Diagnostics")
 ```
 
 ## Confidence Intervals for Models
