@@ -186,16 +186,17 @@ wind_plot
 # STATISTICAL MODELLING
 Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y+1) = \beta_0+\beta_1\mathbf{x}_{Winter}+\beta_2\mathbf x_{Spring}+\beta_3\mathbf x_{Summer}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
 
+For each of the models, there is a nominal variable Season. This does not have a numerical value, so in order to put them into the model, we create 3 new variables: Winter, Spring and Summer (Autumn is the 'default'). For each of these variables we assign a value of 1 to it if it was the current season or else a 0 if it was a different season. 
 
 ## Linear Model for Seoul
-In order to deal with the nominal categorical variable Season, I created n-1 dummy variables where a value is 1 if it is that season and 0 otherwise. 
+Here we used `r lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
 ```{r linear_seoul}
 seoul_model_dataset <- seoul_dataset %>%
   mutate(Winter = ifelse(Season == "Winter", 1, 0)) %>%
   mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
-seoul_model <- lm(formula = log(Count + 1) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
+seoul_model <- lm(formula = log(Count + 1) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
 summary(seoul_model)
 ```
 
@@ -207,7 +208,7 @@ washington_model_dataset <- washington_dataset %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
 
-washington_model <- lm(formula = log(Count) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
+washington_model <- lm(formula = log(Count + 1) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
 summary(washington_model)
 
 ```
