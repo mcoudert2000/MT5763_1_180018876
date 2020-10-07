@@ -301,8 +301,8 @@ confint(washington_model, level = 0.97)
 ```
 
 ## Using our Models!
-Here we will take a Winter day with 0 Temperature, a Wind Speed of 0.5(m/s), a Humidity of 20%. 
-```{r prediction}
+Now for the rest of the project, we'll assume our model validates the assumptions above and is a good fit for the data. Here we will take a Winter day with 0(C) Temperature, a Wind Speed of 0.5(m/s), a Humidity of 20% and predict how many bikes will be rented in a given hour with those specifications. We will use a confidence interval of 90%. 
+```{r logged_prediction}
 example_predict <- data.frame(Temperature = 0,
                               WindSpeed = 0.5,
                               Humidity = 20,
@@ -312,4 +312,9 @@ log_washington_predict <- predict(washington_model, interval = "prediction", lev
 print(log_seoul_predict)
 print(log_washington_predict)
 ```
-
+We have to remember this is a prediction of the $log$ of the count so in order to get a prediction for the number of bikes that will be rented in that hour we'll have to take $e^{\hat y}$ where $\hat y$ is the output of the model.
+```{r prediction}
+print(exp(log_seoul_predict))
+print(exp(log_washington_predict))
+```
+The expected value for Seoul is 369.96 bikes rented in an hour with those specifications with an upper and lower bound of $(94.75,1444.63)$ with 90% confidence. The expected value for Washington DC is 71.98 and has bounds $(9.01,575.29)$. 
