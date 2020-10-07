@@ -196,7 +196,7 @@ seoul_model_dataset <- seoul_dataset %>%
   mutate(Spring = ifelse(Season == "Spring", 1, 0)) %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
-seoul_model <- lm(formula = log(Count + 1) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
+seoul_model <- lm(formula = log(Count + 1) ~ Spring + Summer + Winter + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
 summary(seoul_model)
 ```
 
