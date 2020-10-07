@@ -64,15 +64,17 @@ Similar to the one above I'll go line by line to explain what's going on!
 
 1. Again piping the dataset into the next variables
 2. Selecting and renaming the variables we're using for analysis for consistency. 
-3. Changing humidity into a percentage format to be consistent with the Seoul dataset. ($=\text{humidity}*100$)
-4. Taking the inverse of the normalization function used in the temperature to convert it to Celcius. $f(t) = \frac{t-(-8)}{39-(-8)}$, $f^{-1}(t) = t*(39-(-8))+8$
-5. Taking the inverse of the normalization function used for the temperature to convert it to (m/s) from $f(w)=\frac{1}{67}w (km/h)$, $f^{-1}(w)=\frac{w*67*1000}{60^2}$
-6. Changing the Seasons from a numeric into an ordered factor in the same order as the Seoul Dataset ("Spring","Summer","Autumn","Winter")
-7. Parsing date, putting it into similar FullDate = day-month-year-hour format and removing unneeded Date and Hour variables.
+3. Removing the values for which there is no count
+4. Changing humidity into a percentage format to be consistent with the Seoul dataset. ($=\text{humidity}*100$)
+5. Taking the inverse of the normalization function used in the temperature to convert it to Celcius. $f(t) = \frac{t-(-8)}{39-(-8)}$, $f^{-1}(t) = t*(39-(-8))+8$
+6. Taking the inverse of the normalization function used for the temperature to convert it to (m/s) from $f(w)=\frac{1}{67}w (km/h)$, $f^{-1}(w)=\frac{w*67*1000}{60^2}$
+7. Changing the Seasons from a numeric into an ordered factor in the same order as the Seoul Dataset ("Spring","Summer","Autumn","Winter")
+8. Parsing date, putting it into similar FullDate = day-month-year-hour format and removing unneeded Date and Hour variables.
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
   select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
   rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday') %>%
+  filter(!is.na('Count')) %>%
   mutate(Humidity = Humidity*100) %>%
   mutate(Temperature = Temperature*(39-(-8))+(-8)) %>%
   mutate(WindSpeed = WindSpeed*67*1000/60^2) %>%
@@ -205,7 +207,7 @@ washington_model_dataset <- washington_dataset %>%
   mutate(Summer = ifelse(Season == "Summer", 1, 0))
 
 
-washington_model <- lm(formula = log(Count + 1) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
+washington_model <- lm(formula = log(Count) ~ Winter + Spring + Summer + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
 summary(washington_model)
 
 ```
