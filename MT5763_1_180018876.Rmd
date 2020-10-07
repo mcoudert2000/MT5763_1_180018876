@@ -105,6 +105,7 @@ temp_plot <- dataset %>%
   ggtitle("Temperature over the year in Washington DC and Seoul") #Adding a title
 temp_plot
 ```
+Both cities seem to have similar trends over the year for climate. Seoul seems to have a more extreme winter with lower temperatures approaching -20, with Washington DC's lows being closer to -5. Both appear to have there peak temperature at around 200 days into the year, right in the middle of summer and have there colder days in the winter months. 
 
 ## Season vs Bike Usage
 Now that we have explored the temperature data across the year, it's time to start looking at how each of the explanatory variables affect the number of bikes rented per day. First we'll explore how the season of the year affects how many bikes are rented each day. To visualize this, I plotted a boxplot for each city. There's a clear increase in bike usage during the warmer seasons than in the winter in both cities. There is a more drastic drop in bike usage in Seoul during the winter than in Washington DC, and a question to explore would be whether or not this is due to Washington DC having a comparatively milder winter than Seoul. 
