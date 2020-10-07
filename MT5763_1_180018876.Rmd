@@ -15,9 +15,9 @@ Bike Shares have been rising in popularity over the past few years in many citie
 ## Downloading Packages Needed
 In order to assist us with the data visualization and clean up, we will download 3 packages:
 
-1. **tidyverse**: Assists with putting the data into 'tidy' format
-2. **ggplot2**: Makes plotting cleaner and more readable, as well as adding functionality
-3. **lubridate**: Makes dates easier to work with in our datasets
+1. `tidyverse`: Assists with putting the data into 'tidy' format
+2. `ggplot2`: Makes plotting cleaner and more readable, as well as adding functionality
+3. `lubridate`: Makes dates easier to work with in our datasets
 ```{r packages}
 library(tidyverse)
 library(ggplot2)
@@ -25,18 +25,21 @@ library(lubridate)
 ```
 
 # Data Cleanup
-In order to do analysis on the data, we first need to 'tidy' the data in order to have it in a format that will be easier to work with as well as being in the same format across both datasets for comparison. In order to accomplish this we will put the data into 'tidy' format using the package tidyverse. In order for data to be 'tidy', it must have: "Rows containing differrent observations; columns containing different variables and cells containing values."
+In order to do analysis on the data, we first need to 'tidy' the data in order to have it in a format that will be easier to work with as well as being in the same format across both datasets for comparison. In order to accomplish this we will put the data into 'tidy' format using the package `tidyverse`. In order for data to be 'tidy', it must have: 
 
+*Rows containing differrent observations
+*Columns containing different variables
+*Cells containing values
 
 ## Saving datasets
-The messy datasets are saved in the csv format for easy parsing. 
-```{r datasets, message = FALSE, warning = FALSE, results = FALSE}
+The datasets downloaded from the web are saved in the csv format for easy parsing. 
+```{r datasets, message = FALSE, warning = FALSE}
 washington_dataset <- read_csv("BikeWashingtonDC.csv")
 seoul_dataset <- read_csv("BikeSeoul.csv")
 ```
 
 ## Seoul dataset clean up
-This is a lot! I'll comment each of the lines in order to explain what I'm doing.
+Now we will use the `tidyverse` package and piping in order to put all the data into an easily usable format. This is a lot of piping, so it's all commented so its clear exactly what we're doing!
 ```{r seoul_dataset}
 seoul_dataset <- seoul_dataset %>%
   filter(seoul_dataset$`Functioning Day`=="Yes") %>% #Filtering out all the days that a count wasn't kept track of
@@ -51,7 +54,7 @@ seoul_dataset <- seoul_dataset %>%
 ```
 
 ## Washington DC dataset clean up
-Similar to above, using the `tidyverse` package and piping to put the data into tidy format with consistent naming conventions and formats to the Seoul dataset. 
+Similar to above, using the `tidyverse` package and piping to put the data into tidy format with consistent naming conventions and formats with the Seoul dataset. 
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
   select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>% #Selecting for the variables we need
@@ -82,10 +85,10 @@ dataset <- seoul_dataset %>%
   add_row(washington_dataset) %>%
   arrange(Count)
 ```
-Great! Now both our datasets are in tidy format and we're ready to move on to visualize our data!
+Great! Now that both of our datasets are in tidy format so we're ready to move on to visualizing our data!
 
 # Plotting
-In order to gain a better understanding of how each of the variables are related to eachother, we will plot different variables against eachother. In order to accomplish this we will use `ggplot`. A `tidyverse` package that makes plotting easy to follow. 
+In order to gain a better understanding of how each of the variables are related to eachother, we will plot different variables against eachother. In order to accomplish this we will use `ggplot`: a `tidyverse` package that makes plotting easy to follow. 
 
 ## Temperature v Day Plot
 In order to get a general idea of how the climates in each location change over the seasons, we will plot for both cities a scatter plot of the date versus the temperature for each datapoint (subdivided into hours). In order to plot this and include datasets that have a very different date range, I plotted against the day of the year, starting from January 1st. Additionally, I used stat_smooth to fit a line to estimate the expected temeperature for each day over the year. 
@@ -235,17 +238,17 @@ Now that we've explored some of the relationships between the variables and Bike
 ## Linear Model for Seoul
 Here we used `lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
 ```{r linear_seoul}
-seoul_model_dataset <- seoul_dataset
-seoul_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_model_dataset)
+seoul_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = seoul_dataset)
 summary(seoul_model)
 ```
 
-
 ## Linear model for Washington DC
 ```{r linear_washington}
-washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_model_dataset)
+washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_dataset)
 summary(washington_model)
 ```
+
+
 ## Model Analysis
 A linear model is built on the assumptions that the errors of the model are independent and identically normally distributed with mean 0 and variance $\sigma^2$. 
 
@@ -298,7 +301,7 @@ log_washington_predict <- predict(washington_model, interval = "prediction", lev
 print(log_seoul_predict)
 print(log_washington_predict)
 ```
-We have to remember this is a prediction of the $log$ of the count so in order to get a prediction for the number of bikes that will be rented in that hour we'll have to take $e^{\hat y}$ where $\hat y$ is the output of the model.
+We have to remember this is a prediction of the $\log$ of the count so in order to get a prediction for the number of bikes that will be rented in that hour we'll have to take $e^{\hat y}$ where $\hat y$ is the output of the model.
 ```{r prediction}
 print(exp(log_seoul_predict))
 print(exp(log_washington_predict))
