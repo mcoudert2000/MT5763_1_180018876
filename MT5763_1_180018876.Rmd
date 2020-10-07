@@ -49,45 +49,36 @@ This is a lot! I'll go line by line in order to explain what I'm doing.
 9. Changing the Season variable from a Character type to an Ordered Factor with levels "Spring","Summer","Autumn", and "Winter" in that order. 
 ```{r seoul_dataset}
 seoul_dataset <- seoul_dataset %>%
-  filter(seoul_dataset$`Functioning Day`=="Yes") %>%
-  select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)','Functioning Day')) %>% 
-  filter(!is.na('Rented Bike Count')) %>%
-  rename(Date = 'Date',Count = 'Rented Bike Count',Hour = 'Hour', Temperature = 'Temperature(C)', Humidity = 'Humidity(%)', WindSpeed = 'Wind speed (m/s)', Season = 'Seasons', Holiday = 'Holiday') %>%
-  mutate(Date = parse_date_time(Date,"dmy")) %>%
+  filter(seoul_dataset$`Functioning Day`=="Yes") %>% #Filtering out all the days that a count wasn't kept track of
+  select(-c('Visibility (10m)','Dew point temperature(C)','Solar Radiation (MJ/m2)','Rainfall(mm)','Snowfall (cm)','Functioning Day')) %>% #Removing all the unneeded variables in the dataset
+  filter(!is.na('Rented Bike Count')) %>% #Remove hours with NA for the bike Count
+  rename(Date = 'Date',Count = 'Rented Bike Count',Hour = 'Hour', Temperature = 'Temperature(C)', Humidity = 'Humidity(%)', WindSpeed = 'Wind speed (m/s)', Season = 'Seasons', Holiday = 'Holiday') %>% #Renaming variables for consistency
+  mutate(Date = parse_date_time(Date,"dmy")) %>% #Parsing the dates with Lubridate
   mutate(FullDate = make_datetime(year = year(Date), month = month(Date), day = day(Date), hour = Hour)) %>%
-  select(-c(Date,Hour)) %>%
-  mutate(Holiday = factor(ifelse(Holiday == "Holiday", "Yes", "No"), levels = c("Yes","No"))) %>%
+  select(-c(Date,Hour)) %>% #Removing the redundant Date and Hour variables
+  mutate(Holiday = factor(ifelse(Holiday == "Holiday", "Yes", "No"), levels = c("Yes","No"))) %>% #Changing Season and Holiday to a factor
   mutate(Season = factor(Season, levels = c("Spring","Summer","Autumn","Winter")))
 ```
 
 ## Washington DC dataset clean up
-Similar to the one above I'll go line by line to explain what's going on!
-
-1. Again piping the dataset into the next variables
-2. Selecting and renaming the variables we're using for analysis for consistency. 
-3. Removing the values for which there is no count
-4. Changing humidity into a percentage format to be consistent with the Seoul dataset. ($=\text{humidity}*100$)
-5. Taking the inverse of the normalization function used in the temperature to convert it to Celcius. $f(t) = \frac{t-(-8)}{39-(-8)}$, $f^{-1}(t) = t*(39-(-8))+8$
-6. Taking the inverse of the normalization function used for the temperature to convert it to (m/s) from $f(w)=\frac{1}{67}w (km/h)$, $f^{-1}(w)=\frac{w*67*1000}{60^2}$
-7. Changing the Seasons from a numeric into an ordered factor in the same order as the Seoul Dataset ("Spring","Summer","Autumn","Winter")
-8. Parsing date, putting it into similar FullDate = day-month-year-hour format and removing unneeded Date and Hour variables.
+Similar to above, using the `tidyverse` package and piping to put the data into tidy format with consistent naming conventions and formats to the Seoul dataset. 
 ```{r washington_dataset}
 washington_dataset <- washington_dataset %>%
-  select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>%
-  rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday') %>%
+  select(c('dteday','cnt','hr','temp','hum','windspeed','season','holiday')) %>% #Selecting for the variables we need
+  rename(Date = 'dteday', Count = 'cnt', Hour = 'hr', Temperature = 'temp', Humidity = 'hum', WindSpeed = 'windspeed', Season = 'season', Holiday = 'holiday') %>% #Renaming all the variables for consistency with other dataset
   filter(!is.na('Count')) %>%
-  mutate(Humidity = Humidity*100) %>%
-  mutate(Temperature = Temperature*(39-(-8))+(-8)) %>%
-  mutate(WindSpeed = WindSpeed*67*1000/60^2) %>%
-  mutate(Season = ifelse(Season == 1, "Winter", Season)) %>%
+  mutate(Humidity = Humidity*100) %>% #Converting humidity into a percent
+  mutate(Temperature = Temperature*(39-(-8))+(-8)) %>% #Taking inverse of temperature normalization function to have all temperature data in Celcius
+  mutate(WindSpeed = WindSpeed*67*1000/60^2) %>% #Taking inverse of the WindSpeed normalization function and converting it into (m/s)
+  mutate(Season = ifelse(Season == 1, "Winter", Season)) %>% #Changing the season from a numeric to a factor
   mutate(Season = ifelse(Season == 2, "Spring", Season)) %>%
   mutate(Season = ifelse(Season == 3, "Summer", Season)) %>%
   mutate(Season = ifelse(Season == 4, "Autumn", Season)) %>%
-  mutate(Season = factor(Season, levels = c("Spring","Summer","Autumn","Winter"))) %>%
-  mutate(Holiday = factor(ifelse(Holiday == 1, "Yes", "No"), levels = c("Yes","No"))) %>%
-  mutate(Date = parse_date_time(Date,"ymd")) %>%
+  mutate(Season = factor(Season, levels = c("Spring","Summer","Autumn","Winter"))) %>% 
+  mutate(Holiday = factor(ifelse(Holiday == 1, "Yes", "No"), levels = c("Yes","No"))) %>% #Changing Holiday to a factor
+  mutate(Date = parse_date_time(Date,"ymd")) %>% # Using Lubridate to parse the date
   mutate(FullDate = make_datetime(year = year(Date), month = month(Date), day = day(Date), hour = Hour)) %>%
-  select(-c(Date,Hour))
+  select(-c(Date,Hour)) #Removing Date and Hour now that we have a FullDate variable as they are redundant
 ```
 
 
