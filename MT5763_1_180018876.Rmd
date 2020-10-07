@@ -105,7 +105,7 @@ temp_plot <- dataset %>%
   ggtitle("Temperature over the year in Washington DC and Seoul") #Adding a title
 temp_plot
 ```
-Both cities seem to have similar trends over the year for climate. Seoul seems to have a more extreme winter with lower temperatures approaching -20, with Washington DC's lows being closer to -5. Both appear to have there peak temperature at around 200 days into the year, right in the middle of summer and have there colder days in the winter months. 
+Both cities seem to have similar trends over the year for climate. Seoul seems to have a more extreme winter with lower temperatures approaching -20, with Washington DC's lows being closer to -5. Both appear to have there peak temperature at around 200 days into the year, right in the middle of summer and have their colder days in the winter months. 
 
 ## Season vs Bike Usage
 Now that we have explored the temperature data across the year, it's time to start looking at how each of the explanatory variables affect the number of bikes rented per day. First we'll explore how the season of the year affects how many bikes are rented each day. To visualize this, I plotted a boxplot for each city. There's a clear increase in bike usage during the warmer seasons than in the winter in both cities. There is a more drastic drop in bike usage in Seoul during the winter than in Washington DC, and a question to explore would be whether or not this is due to Washington DC having a comparatively milder winter than Seoul. 
@@ -136,7 +136,7 @@ holiday_plot <- dataset %>%
   ylab("Number of bikes rented per day")
 holiday_plot
 ```
-It appears at first that Seoul has a much larger affect on its bike rental usage. Looking further into this, this can be partially explained that for both cities, it appears the largest gap between Holidays and non-holidays is in the Winter, and Seoul has many more of its holidays on Winter days than Washington DC does combined with the fact that Winter has on average less bike usage than other seasons.
+It appears at first that Seoul has a much larger affect on its bike rental usage. Looking further into this, this can be partially explained that for both cities, it appears the largest gap between Holidays and non-Holidays is in the Winter, and Seoul has many more of its holidays on Winter days than Washington DC does combined with the fact that Winter has an average less bike usage than other seasons.
 
 ## Time of Day vs Bike Usage
 In order to plot the time of day vs the number of bikes hour we will first find the average number of bikes hired for each dataset:
@@ -156,7 +156,7 @@ hour_avg_plot <- hour_count_average %>%
   xlab("Time of Day")
 hour_avg_plot
 ```
-There's clearly an increase at commuting times of 9 and 16-18 hours with a sharp decrease in the late hours of the night. Considering these are very common commuting times it makes sense that the peak would be during these times of day. 
+There's clearly an increase at times of 900 and 1600-1800 hours with a sharp decrease in the late hours of the night. Considering these are very common commuting times it makes sense that the peak would be during these times of day. 
 
 
 ## Weather Variables vs Bike Usage
@@ -233,10 +233,10 @@ wind_plot <- wind_count_average %>%
   xlab("Wind Speed (m/s)")
 wind_plot
 ```
-For both of these datasets, it looks quite clearly non-linear with a peak of around 2.5(m/s) for Seoul and 5(m/s). This could be due to the fact that it is either non-linear or the fact that there is less data for larger or smaller wind speeds increasing the affect of outliers on the model.
+For both of these datasets, it looks quite clearly non-linear slightly negative relationship with a peak of around 2.5(m/s) for Seoul and 5(m/s) for Washington DC. This could be due to the fact that it is either non-linear or the fact that there is less data for larger or smaller wind speeds increasing the affect of outliers on the model.
 
 # STATISTICAL MODELLING
-Now that we've explored some of the relationships between the variables and Bike Rentals individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y) = \beta_0+\beta_1\mathbf{x}_{Summer}+\beta_2\mathbf x_{Autumn}+\beta_3\mathbf x_{Winter}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
+Now that we've explored some of the relationships between the variables and bike usage individually, it's now time to put all of it together into a linear model! For each of the models, we will plot a line that predicts the number of bike rentals based on the explanatary variables. $\log(\hat y) = \beta_0+\beta_1\mathbf{x}_{Summer}+\beta_2\mathbf x_{Autumn}+\beta_3\mathbf x_{Winter}+\beta_4\mathbf x_{Temperature}+\beta_5\mathbf x_{Humidity}+\beta_6\mathbf x_{WindSpeed}$ Where $\hat y$ is the expected value of bikes rented in that hour. 
 
 ## Linear Model for Seoul
 Here we used `lm(formula = ..., data = ...)` to fit a model to the Seoul data. 
@@ -246,11 +246,12 @@ summary(seoul_model)
 ```
 
 ## Linear model for Washington DC
+Again using `lm()` to build the linear model described above.
 ```{r linear_washington}
 washington_model <- lm(formula = log(Count) ~ Season + Temperature + Humidity + WindSpeed, data = washington_dataset)
 summary(washington_model)
 ```
-
+The Multiple R-Squared of the Seoul model is much higher than that of the Washington Model, implying the Seoul model is a better fit for the data. 
 
 ## Model Analysis
 A linear model is built on the assumptions that the errors of the model are independent and identically normally distributed with mean 0 and variance $\sigma^2$. 
@@ -318,5 +319,3 @@ print(exp(log_seoul_predict))
 print(exp(log_washington_predict))
 ```
 The expected value for Seoul is 369.96 bikes rented in an hour with those specifications with an upper and lower bound of $(94.75,1444.63)$ with 90% confidence. The expected value for Washington DC is 71.98 and has bounds $(9.01,575.29)$. For both models we have a very large prediction interval with 90% confidence. This suggests there is a high level of variance and that the model isn't very accurate. Perhaps a linear model doesn't account for all the nuances of the data, such as the perhaps non-linear relationship between temperature and bike usage. 
-
-#
