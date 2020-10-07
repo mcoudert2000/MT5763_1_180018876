@@ -136,7 +136,7 @@ season_plot_day
 ```
 
 ## Plotting holiday v bike demand
-Next we would like to explore the affect of Holidays on bike usage. It appears at first that Seoul has a much larger affect on its bike rental usage. Looking further into this, this can be partially explained that for both cities, it appears the largest gap between Holidays and non-holidays is in the Winter, and Seoul has many more of its holidays on Winter days than Washington DC does. 
+Next we would like to explore the affect of Holidays on bike usage. 
 ```{r holiday_v_bike_demand, message=FALSE}
 holiday_plot <- dataset %>%
   group_by(date(FullDate), City, Holiday, Season) %>%
@@ -149,6 +149,8 @@ holiday_plot <- dataset %>%
   ylab("Number of bikes rented per day")
 holiday_plot
 ```
+It appears at first that Seoul has a much larger affect on its bike rental usage. Looking further into this, this can be partially explained that for both cities, it appears the largest gap between Holidays and non-holidays is in the Winter, and Seoul has many more of its holidays on Winter days than Washington DC does combined with the fact that Winter has on average less bike usage than other seasons.
+
 
 ## Plotting Weather versus Bike Count
 Here we will Plot to see the relationship between the different meteorlogoical variables and the number of bikes rented. 
