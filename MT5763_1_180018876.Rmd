@@ -1,13 +1,15 @@
 ---
 title: "Bike Share Analysis"
 author: "Matthew Coudert"
-date: "Saturday September 26th"
+date: "Wednesday October 7th"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+This project is stored on a github repository at:https://github.com/mcoudert2000/MT5763_1_180018876
 
 # Introduction
 Bike Shares have been rising in popularity over the past few years in many cities all around the world. In order to predict usage of bikes throughout the year, we will explore the relationships between bike usage and other variables, such as day of the year, season, temperature and other meteorlogical variables. After exploring these relationships, we will use this knowledge to build a model in order to predict bike demand throughout the year. For this project, we have data from Washington DC and Seoul, and will use these data to build two distinct models. 
@@ -315,3 +317,5 @@ print(exp(log_seoul_predict))
 print(exp(log_washington_predict))
 ```
 The expected value for Seoul is 369.96 bikes rented in an hour with those specifications with an upper and lower bound of $(94.75,1444.63)$ with 90% confidence. The expected value for Washington DC is 71.98 and has bounds $(9.01,575.29)$. For both models we have a very large prediction interval with 90% confidence. This suggests there is a high level of variance and that the model isn't very accurate. Perhaps a linear model doesn't account for all the nuances of the data, such as the perhaps non-linear relationship between temperature and bike usage. 
+
+#
