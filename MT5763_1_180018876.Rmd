@@ -286,14 +286,14 @@ plot(seoul_model)
 * *Scale-Location*: The assumption seems reasonable that the residuals have equal variance.
 * *Residuals vs Leverage*: There doesn't appear to be any outliers that are greatly affecting our model.
 
-## Confidence Intervals for Seoul
+### Confidence Intervals for Seoul
 Here, I've generated a 97% confidence interval for each of the variables. 
 ```{r confidence_interval_seoul}
 confint(seoul_model, level = 0.97) 
 ```
 Interestingly, Summer has a lower coefficient than Autumn does even though we observed in our plot above there was a positive relationship between Summer and the other seasons and bike usage. This could be the model compensating for temperature being positively linear at high temperatures that were seen in the summer months when we observed above there may be a negative relationship between temperature and bike usage and high temperatures. Its also interesting to see that the season of the year seems to have a higher weight within the model than the other variables, implying that the best predictor of bike usage is the season of the year. 
 
-## Confidence Intervals for Washington
+### Confidence Intervals for Washington
 Again generating a 97% confidence interval for each of the variables
 ```{r confidence_interval_washington}
 confint(washington_model, level = 0.97)
